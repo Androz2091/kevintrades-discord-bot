@@ -29,5 +29,6 @@ declare namespace NodeJS {
 
         SYSTEM_IDS: string;
         C2_API_KEY: string;
+        SYNC_INTERVAL: string;
     }
 }

@@ -9,7 +9,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const systemIds = process.env.SYSTEM_IDS!.split(',');
 
 export const crons = [
-    `*/${Math.max(5, systemIds.length * 2)} * * * * *`
+    `*/${Math.max(parseInt(process.env.SYNC_INTERVAL || "5"), systemIds.length * 2)} * * * * *`
 ];
 
 function formatAMPM (date: Date) {
