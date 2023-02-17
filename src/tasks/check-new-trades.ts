@@ -71,7 +71,11 @@ export const run = async () => {
 
         const tradeDescription = (trade: any) => {
             const time = trade.traded_time ? new Date(trade.traded_time) : new Date(trade.posted_time);
-            return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${trade.strike} ${trade.putcall} ${trade.expiration} at $${(Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100).toFixed(2)} at ${formatAMPM(time)} (EST)`;
+            const month = trade.expiration.substr(0, 3);
+            const [_, yydd] = trade.symbol.match(/([0-9]{4})/);
+            const yy = yydd.substr(0, 2);
+            const dd = yydd.substr(2, 2);
+            return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${month} ${dd} ${trade.strike} ${trade.putcall} at $${(Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100).toFixed(2)} at ${formatAMPM(time)} (EST)`;
         };
 
         const logs = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID!) as TextChannel;
