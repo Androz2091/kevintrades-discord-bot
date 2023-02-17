@@ -86,10 +86,10 @@ export const run = async () => {
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkRed)
                 .setAuthor({
-                    name: `Trade closed`,
+                    name: `Kevin closed`,
                     iconURL: client.user!.displayAvatarURL()
                 })
-                .setDescription(`Kevin closed ${tradeDescription(newClosedTrade)}`);
+                .setDescription(tradeDescription(newClosedTrade));
 
             logs.send({ embeds: [embed] });
             
@@ -106,10 +106,10 @@ export const run = async () => {
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkGreen)
                 .setAuthor({
-                    name: `Trade opened`,
+                    name: `Kevin opened`,
                     iconURL: client.user!.displayAvatarURL()
                 })
-                .setDescription(`Kevin opened ${tradeDescription(newOpenedTrade)}`);
+                .setDescription(tradeDescription(newOpenedTrade));
             
             logs.send({ embeds: [embed] });
 
