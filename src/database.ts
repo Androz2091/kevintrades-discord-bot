@@ -1,4 +1,4 @@
-import { Entity, Column, DataSource, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import { Entity, Column, DataSource, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn } from "typeorm";
 import { Database, Resource } from '@adminjs/typeorm';
 import { validate } from 'class-validator';
 
@@ -12,21 +12,41 @@ Resource.validate = validate;
 AdminJS.registerAdapter({ Database, Resource });
 
 @Entity()
-export class User extends BaseEntity {
+export class CheckingStatus extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({
-        length: 32
-    })
-    userId!: string;
-    
     @Column()
-    money!: number;
+    cancelled!: boolean;
+    
+    @Column({
+        type: 'timestamp with time zone'
+    })
+    disabledUntil!: Date;
 
 }
 
-const entities = [User];
+@Entity()
+export class DetectedTrade extends BaseEntity {
+
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column()
+    systemId!: string;
+
+    @Column()
+    tradeId!: string;
+
+    @Column()
+    description!: string;
+
+    @CreateDateColumn()
+    foundAt!: Date;
+
+}
+
+const entities = [CheckingStatus, DetectedTrade];
 
 export const Postgres = new DataSource({
     type: 'postgres',

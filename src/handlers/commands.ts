@@ -31,7 +31,8 @@ export const synchronizeSlashCommands = async (client: Client, commands: ChatInp
 
     const deletedCommands = currentCommands.filter((command) => !commands.some((c) => c.name === command.name)).toJSON();
     for (let deletedCommand of deletedCommands) {
-        await deletedCommand.delete();
+        //await deletedCommand.delete();
+        console.log(`WARNING : YOU MIGHT WANT TO DELETE THIS COMMAND : ${deletedCommand.name}`)
     }
 
     log(`Deleted ${deletedCommands.length} commands!`);
