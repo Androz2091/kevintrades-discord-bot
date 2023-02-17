@@ -71,7 +71,7 @@ export const run = async () => {
 
         const tradeDescription = (trade: any) => {
             const time = trade.traded_time_unix ? new Date(trade.traded_time_unix * 1000) : new Date(trade.posted_time_unix * 1000);
-            return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${trade.strike} ${trade.putcall} ${trade.expiration} at $${Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100} at ${formatAMPM(time)} (EST)`;
+            return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${trade.strike} ${trade.putcall} ${trade.expiration} at $${(Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100).toFixed(2)} at ${formatAMPM(time)} (EST)`;
         };
 
         const logs = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID!) as TextChannel;
