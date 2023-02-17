@@ -25,8 +25,6 @@ function formatAMPM (date: Date) {
 
 export const run = async () => {
 
-    // the bot should not work on weekends and have a clear daily working times between 9:30 est and 16:00 est
-
     const status = await Postgres.getRepository(CheckingStatus).findOne({
         where: {
             cancelled: false,
@@ -37,10 +35,17 @@ export const run = async () => {
         return void console.log(`Paused: ${status.disabledUntil.toLocaleString()}`);
     }
 
+    // the bot should not work on weekends and have a clear daily working times between 9:30 est and 16:00 est
+
     const now = new Date();
     const day = now.getDay();
     const hour = now.getHours();
     const minute = now.getMinutes();
+
+    // fix the code above as it's not using est
+
+    now.setHours(now.getHours() - 5);
+    console.log(now.getHours());
 
     const isPauseDay = day === 0 || day === 6;
     const isPauseHour = hour === 9 && minute < 30 || hour === 16 && minute > 0;

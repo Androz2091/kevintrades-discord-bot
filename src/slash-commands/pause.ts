@@ -40,7 +40,7 @@ export const run: SlashCommandRunFunction = async (interaction) => {
     });
 
     await interaction.reply({
-        content: `Database updated. The bot will automatically be re-enabled at ${disabledUntil.toLocaleString()}.`,
+        content: `Database updated. The bot will automatically be re-enabled at ${disabledUntil.toLocaleString('en-US', { timeZone: 'America/New_York' })}.`,
         ephemeral: true
     });
     

@@ -1,5 +1,3 @@
-process.env.TZ = 'America/New_York';
-
 import { config } from 'dotenv';
 config();
 
