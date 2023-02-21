@@ -57,6 +57,8 @@ export const run = async () => {
     if (!Postgres.isInitialized) return;
 
     for (const systemId of systemIds) {
+
+        const accountName = systemId === '142763803' ? 'Kevinacci25k' : 'Kevinacci';
     
         const res = await (await fetch('https://api.collective2.com/world/apiv3/retrieveSignalsAll', {
             method: 'POST',
@@ -95,12 +97,12 @@ export const run = async () => {
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkRed)
                 .setAuthor({
-                    name: `Kevin closed`,
+                    name: `${accountName} closed`,
                     iconURL: client.user!.displayAvatarURL()
                 })
                 .setDescription(tradeDescription(newClosedTrade));
 
-            logs.send({ embeds: [embed] });
+            logs.send({ content: '@everyone', embeds: [embed] });
             
             console.log(newClosedTrade)
         }
@@ -115,12 +117,12 @@ export const run = async () => {
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkGreen)
                 .setAuthor({
-                    name: `Kevin opened`,
+                    name: `${accountName} opened`,
                     iconURL: client.user!.displayAvatarURL()
                 })
                 .setDescription(tradeDescription(newOpenedTrade));
             
-            logs.send({ embeds: [embed] });
+            logs.send({ content: '@everyone', embeds: [embed] });
 
             console.log(newOpenedTrade)
         }
