@@ -39,13 +39,13 @@ export const run = async () => {
 
     const now = new Date();
     const day = now.getDay();
-    const hour = now.getHours();
+    let hour = now.getHours();
     const minute = now.getMinutes();
 
     // fix the code above as it's not using est
 
     now.setHours(now.getHours() - 5);
-    console.log(now.getHours());
+    hour = now.getHours();
 
     const isPauseDay = day === 0 || day === 6;
     const isPauseHour = hour === 9 && minute < 30 || hour === 16 && minute > 0;
