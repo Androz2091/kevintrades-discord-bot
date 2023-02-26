@@ -48,7 +48,7 @@ export const run = async () => {
     hour = now.getHours();
 
     const isPauseDay = day === 0 || day === 6;
-    const isPauseHour = hour === 9 && minute < 30 || hour === 16 && minute > 0;
+    const isPauseHour = hour < 9 && minute < 30 || hour > 16;
     const isPauseTime = isPauseDay || isPauseHour;
     if (isPauseTime) {
         return void console.log(`Paused: ${isPauseDay ? 'Day' : 'Hour'}`);
