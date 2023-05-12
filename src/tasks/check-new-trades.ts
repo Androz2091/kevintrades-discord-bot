@@ -85,6 +85,10 @@ export const run = async () => {
             return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${month} ${dd} ${trade.strike} ${trade.putcall} at $${(Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100).toFixed(2)} at ${formatAMPM(time)} (EST)`;
         };
 
+        if ([...newClosedTrades, ...newOpenedTrades].length > 100) {
+            return void console.log(`Too many trades: ${[...newClosedTrades, ...newOpenedTrades].length}`);
+        }
+
         const logs = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID!) as TextChannel;
 
         for (const newClosedTrade of newClosedTrades) {
