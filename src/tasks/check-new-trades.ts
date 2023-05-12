@@ -99,8 +99,12 @@ export const run = async () => {
             await Postgres.getRepository(DetectedTrade).insert({
                 systemId,
                 tradeId: `traded-${newClosedTrade.signal_id}`,
-                description: tradeDescription(newClosedTrade)
+                description: tradeDescription(newClosedTrade) || ''
             });
+
+            if (!tradeDescription(newClosedTrade)) {
+                continue;
+            }
 
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkRed)
@@ -119,8 +123,12 @@ export const run = async () => {
             await Postgres.getRepository(DetectedTrade).insert({
                 systemId,
                 tradeId: `working-${newOpenedTrade.signal_id}`,
-                description: tradeDescription(newOpenedTrade)
+                description: tradeDescription(newOpenedTrade) || ''
             });
+
+            if (!tradeDescription(newOpenedTrade)) {
+                continue;
+            }
 
             const embed = new EmbedBuilder()
                 .setColor(Colors.DarkGreen)
