@@ -78,10 +78,14 @@ export const run = async () => {
 
         const tradeDescription = (trade: any) => {
             const time = trade.traded_time ? new Date(trade.traded_time) : new Date(trade.posted_time);
-            const month = trade.expiration.substr(0, 3);
-            const dataT = trade.symbol.match(/([0-9]{4})/);
+            const month = trade.expiration?.substr(0, 3);
+            const dataT = trade.symbol?.match(/([0-9]{4})/);
             const yy = dataT?.[1]?.substr(0, 2) || 'NA';
             const dd = dataT?.[1]?.substr(2, 2) || 'NA';
+            if (!time || !month || !yy || !dd) {
+                console.log('Invalid trade', trade);
+                return null;
+            }
             return `${trade?.quant || 0} ${trade.action} ${trade.underlying} ${month} ${dd} ${trade.strike} ${trade.putcall} at $${(Math.round((trade.traded_price || trade.isLimitOrder || 0) * 100) / 100).toFixed(2)} at ${formatAMPM(time)} (EST)`;
         };
 
